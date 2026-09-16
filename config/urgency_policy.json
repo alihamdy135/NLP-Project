@@ -1,0 +1,21 @@
+{
+  "weights": {
+    "deadline_proximity": 0.5,
+    "explicit_cue_strength": 0.3,
+    "slot_recency": 0.2
+  },
+  "urgent_threshold": 0.5,
+  "deadline_proximity": {
+    "overdue_or_within_24h": 1.0,
+    "decay_days": 14
+  },
+  "explicit_cue_strength": {
+    "high": {"cues": ["asap", "urgent", "immediately"], "score": 1.0},
+    "medium": {"cues": ["soon", "this week"], "score": 0.6},
+    "none": {"score": 0.0}
+  },
+  "slot_recency": {
+    "top_slot_current_horizon": 1.0,
+    "outside_horizon": 0.0
+  }
+}

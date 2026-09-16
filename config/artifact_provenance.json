@@ -1,0 +1,29 @@
+{
+  "milestone_sources": {
+    "milestone_1_eda": "notebooks/outputs/milestone_01_eda",
+    "milestone_2_training_data": "local training outputs (not bundled)",
+    "milestone_3_audit": "local training outputs (not bundled)",
+    "milestone_4_model_a": "models/best_model_A.pt",
+    "milestone_4_model_b_priority": "models/best_model_B.pt",
+    "milestone_4_model_b_effort": "models/best_model_effort.pt",
+    "effort_production_metrics": "models/effort_production_config.json",
+    "milestone_5_notebook": "local training notebook (not bundled)",
+    "full_pipeline_notebook": "local training notebook (not bundled)"
+  },
+  "runtime_mapping": {
+    "model_a_context": "milestone_4_model_a",
+    "model_b_priority": "milestone_4_model_b_priority",
+    "model_b_effort": "milestone_4_model_b_effort",
+    "urgency_policy": "config/urgency_policy.json",
+    "eda_evidence": "milestone_1_eda",
+    "training_contract": ["milestone_2_training_data", "milestone_3_audit"]
+  },
+  "effort_disclosure": {
+    "label_policy": "positive timeestimate_seconds first; positive timespent_seconds fallback; zero/non-positive values are missing",
+    "coverage": {"train": 1314, "validation": 281, "test": 282, "total": 1877},
+    "prediction": "S/M/L bucket with train-only duration calibration",
+    "domain_warning": "Jira software issues are a transfer/proxy source, not personal task ground truth",
+    "user_override_authoritative": true
+  },
+  "public_release_note": "Training exports and raw Jira data are intentionally not included in this public repository. Checkpoints are distributed as GitHub Release assets."
+}

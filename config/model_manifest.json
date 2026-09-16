@@ -1,0 +1,42 @@
+{
+  "manifest_version": "1.1",
+  "feature_schema_version": "m5-inference-1.1",
+  "model_root": "models",
+  "models": {
+    "context": {
+      "artifact": "best_model_A.pt",
+      "base_model": "distilbert-base-uncased",
+      "tokenizer": "distilbert-base-uncased",
+      "input_format": "{task_title} [SEP] {list_title}",
+      "time_labels": ["WD-morning", "WD-afternoon", "WD-evening", "WD-night", "WD-anytime", "WE-morning", "WE-afternoon", "WE-evening", "WE-night", "WE-anytime"],
+      "location_labels": ["home", "work", "public"],
+      "thresholds": [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+    },
+    "priority": {
+      "artifact": "best_model_B.pt",
+      "base_model": "distilroberta-base",
+      "tokenizer": "distilroberta-base",
+      "input_format": "cleaned summary and description",
+      "labels": ["Blocker", "Critical", "Major", "Minor", "Trivial"]
+    },
+    "effort": {
+      "artifact": "best_model_effort.pt",
+      "config_artifact": "effort_production_config.json",
+      "base_model": "distilroberta-base",
+      "tokenizer": "distilroberta-base",
+      "input_format": "same cleaned summary and description as priority model",
+      "labels": ["S", "M", "L"],
+      "difficulty_map": {"S": "easy", "M": "medium", "L": "hard"},
+      "max_length": 64,
+      "target_source": "positive timeestimate_seconds first; positive timespent_seconds fallback; zero/non-positive is missing",
+      "proxy_domain": "Jira software issues",
+      "deployment_gate": "effort_production_metrics.json deployment_status must be candidate"
+    }
+  },
+  "known_limitations": [
+    "Effort is a coarse Jira transfer/proxy model trained on 1,877 positive labels: timeestimate first and timespent fallback; zero/non-positive values are missing.",
+    "Estimated minutes are calibrated bucket medians/ranges, not a guaranteed continuous duration; user-entered duration always takes precedence.",
+    "Deadline and urgency remain explicit-input/text/rule based; personal importance remains user-confirmed.",
+    "The scheduler splits model-estimated work across available days instead of treating a large estimate as one session."
+  ]
+}
